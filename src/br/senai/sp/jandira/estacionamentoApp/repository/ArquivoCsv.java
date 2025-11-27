@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -65,4 +66,14 @@ public class ArquivoCsv {
             erro.printStackTrace();
         }
     }
+
+    public void limparArquivo(String caminho, String cabecalho){
+        try {
+            Files.write(Paths.get(caminho), Collections.singleton(cabecalho), StandardCharsets.UTF_8);
+            }catch(IOException erro){
+            erro.printStackTrace();
+        }
+    }
+
+
 }
