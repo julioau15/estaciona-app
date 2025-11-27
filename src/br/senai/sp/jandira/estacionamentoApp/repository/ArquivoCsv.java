@@ -1,35 +1,28 @@
 package br.senai.sp.jandira.estacionamentoApp.repository;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class ArquivoCsv {
     //    função que vai ler o arquivo csv
-    public String[] lerCsv(String caminho){
+    public List<String> lerCsv(String caminho) {
         String[] dados = null;
 
-
+        //cria uma lista para armazenar as linhas do arquivo
+        List<String> linhas = null;
         try {
             // Lê todas as linhas em uma lista
-            List<String> linhas = Files.readAllLines(Paths.get(caminho), StandardCharsets.UTF_8);
+            linhas = Files.readAllLines(Paths.get(caminho), StandardCharsets.UTF_8);
 
-            // Processa a lista
-            for (String linha : linhas) {
-                String[] colunas = linha.split(";");
-                dados = colunas;
-            }
-    
             // pega a exceção
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return dados;
+        return linhas;
     }
 
     // função que vai gravar os dados no arquivo csv
@@ -41,25 +34,35 @@ public class ArquivoCsv {
             Files.writeString(arquivo, dados, StandardOpenOption.APPEND);
 
         }catch(IOException erro){
-            
+            erro.printStackTrace();
         }
     }
 
     // função que exclui a linha do veiculo se for igual a placa informada
     public void excluirVeiculo(String caminho, String placa){
         String[] dados = null;
-        String[] dadosAtualizados = null;
-        dados = lerCsv(caminho);
-       
-        for(int i = 0; i < dados.length; i++){
-            if (dados[2].equals(placa)) {
-                dadosAtualizados[i] = dados[i];
-                String linha = dadosAtualizados[i];
-                gravarCsv(caminho, linha);
-            }else{
-                
+        List<String> linhas;
+        List<String> dadosAtualizados = new java.util.ArrayList<>();
+        linhas = lerCsv(caminho);
+
+
+        for(String linha : linhas){ // para cada linha na lista:
+            dados = linha.split(";");
+            if(!dados[2].equalsIgnoreCase(placa)){ // se não for igual a placa adiciona a linha nos dados atualizados
+                dadosAtualizados.add(linha);
             }
         }
 
+        // tenta escrever os dados atualizados no arquivo veiculos_estacionados.csv
+        try {
+            if (!dadosAtualizados.isEmpty()) {
+                Files.write(Paths.get(caminho), dadosAtualizados, StandardCharsets.UTF_8);
+            }else{
+                System.out.println("Veiculo não encontrado.");
+            }
+
+        }catch(IOException erro){
+            erro.printStackTrace();
+        }
     }
 }
