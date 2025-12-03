@@ -12,8 +12,10 @@ import java.util.List;
 public class RegistroService {
     ArquivoCsv arquivoCsv = new ArquivoCsv();
     CalculoService calculoService = new CalculoService();
-    String caminhoEntrada = "/Users/25203694/IdeaProjects/estaciona-app/src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
-    String caminhoSaida = "/Users/25203694/IdeaProjects/estaciona-app/src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
+
+    //em fase de teste alterar o usuario "25203700" para seu proprio usuario
+    String caminhoEntrada = "/Users/25203700/IdeaProjects/estaciona-app/src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
+    String caminhoSaida = "/Users/25203700/IdeaProjects/estaciona-app/src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
 
     public void registrarEntrada(String cliente, String telefone , String placa, String modelo){
         Veiculo veiculo = new Veiculo(cliente, telefone, placa, modelo);
