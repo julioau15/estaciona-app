@@ -14,8 +14,8 @@ public class RegistroService {
     CalculoService calculoService = new CalculoService();
 
     //em fase de teste alterar o usuario "25203700" para seu proprio usuario
-    String caminhoEntrada = "/Users/25203700/IdeaProjects/estaciona-app/src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
-    String caminhoSaida = "/Users/25203700/IdeaProjects/estaciona-app/src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
+    String caminhoEntrada = "/Users/SAMSUNG/P.I/java/src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
+    String caminhoSaida = "/Users/SAMSUNG/P.I/java/src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
 
     public void registrarEntrada(String cliente, String telefone , String placa, String modelo){
         Veiculo veiculo = new Veiculo(cliente, telefone, placa, modelo);

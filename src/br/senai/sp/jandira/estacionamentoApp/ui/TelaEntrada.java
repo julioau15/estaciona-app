@@ -1,16 +1,19 @@
 package br.senai.sp.jandira.estacionamentoApp.ui;
 
+import br.senai.sp.jandira.estacionamentoApp.EstacionamentoApp;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class TelaEntrada extends Application {
+public class TelaEntrada extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Projeto Integrador");
@@ -46,16 +49,25 @@ public class TelaEntrada extends Application {
         //criar botoes
         Button buttonEntrada = new Button("Entrada de veiculo");
         Button buttonSaida = new Button("Saida de veiculo");
-        Button buttonLimpar = new Button("Limpar regidtros");
+        Button buttonLimpar = new Button("Limpar registros");
         Button buttonSair = new Button("Sair");
         paneButtons.getChildren().addAll(boxButtons);
 
+        //adicionar botoes
+        boxButtons.getChildren().addAll(buttonEntrada, buttonSaida, buttonLimpar, buttonSair);
+
+        TableView<EstacionamentoApp> tabela =new TableView<>();
+
+        TableColumn<EstacionamentoApp,String> modelo = new TableColumn<>("Nome");
+
+        tabela.getColumns().addAll(modelo);
 
         //Conteudo do header
         header.getChildren().addAll(titulo, descricao);
         //conteudo do root
         root.getChildren().addAll(header);
         root.getChildren().addAll(paneButtons);
+        root.getChildren().addAll(tabela);
 
         //Colocamos a cena no palco
         stage.setScene(scene);
