@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 public class TelaPrincipal extends Application {
     @Override
     public void start(Stage stage) throws Exception {
@@ -24,6 +25,7 @@ public class TelaPrincipal extends Application {
         stage.setWidth(500);
 
         //Criar o root componente principal de layout
+
         VBox root = new VBox();
         root.setPadding(new Insets(10));
         root.setStyle("-fx-background-color: #6c00a9");
@@ -67,19 +69,16 @@ public class TelaPrincipal extends Application {
         TableColumn<EstacionamentoApp,String> modelo = new TableColumn<>("Modelo");
         TableColumn<EstacionamentoApp,String> entrada = new TableColumn<>("Entrada");
         TableColumn<EstacionamentoApp,String> permanencia = new TableColumn<>("Permanência");
-
         tabela.getColumns().addAll(cliente,telefone,placa,modelo,entrada,permanencia);
 
         //criar tabela 2
         TableView<EstacionamentoApp> tabela2 =new TableView<>();
-
         TableColumn<EstacionamentoApp,String> cliente2 = new TableColumn<>("Cliente");
         TableColumn<EstacionamentoApp,String> telefone2 = new TableColumn<>("Telefone");
         TableColumn<EstacionamentoApp,String> placa2 = new TableColumn<>("Placa");
         TableColumn<EstacionamentoApp,String> modelo2 = new TableColumn<>("Modelo");
         TableColumn<EstacionamentoApp,String> entrada2 = new TableColumn<>("Entrada");
         TableColumn<EstacionamentoApp,String> permanencia2 = new TableColumn<>("Permanência");
-
         tabela2.getColumns().addAll(cliente2,telefone2,placa2,modelo2,entrada2,permanencia2);
 
         //Conteudo do header
@@ -94,7 +93,15 @@ public class TelaPrincipal extends Application {
         //Colocamos a cena no palco
         stage.setScene(scene);
         stage.show();
-        }
+
+        buttonEntrada.setOnAction(e -> {
+            try {
+                new TelaEntrada().start(new Stage());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
     }
 
-
+}

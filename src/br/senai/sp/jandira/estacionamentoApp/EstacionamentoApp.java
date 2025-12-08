@@ -15,7 +15,7 @@ public class EstacionamentoApp {
         RegistroService registroService = new RegistroService();
         registroService.registrarSaida(placa);
 
-        Application.launch(TelaEntrada.class, args);
+        //Application.launch(TelaEntrada.class, args);
         Application.launch(TelaPrincipal.class, args);
 
 
