@@ -9,12 +9,6 @@ import javafx.application.Application;
 
 public class EstacionamentoApp {
     public static void main(String[] args) {
-       String cliente = "julio";
-       String telefone = "123456789";
-       String modelo = "Gol";
-       String placa = "abc-1234";
-        RegistroService registroService = new RegistroService();
-        registroService.registrarSaida(placa);
 
         //Application.launch(TelaEntrada.class, args);
         Application.launch(TelaPrincipal.class, args);
