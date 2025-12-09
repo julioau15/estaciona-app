@@ -4,14 +4,13 @@ import br.senai.sp.jandira.estacionamentoApp.EstacionamentoApp;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 
 public class TelaPrincipal extends Application {
@@ -99,6 +98,24 @@ public class TelaPrincipal extends Application {
                 new TelaEntrada().start(new Stage());
             } catch (Exception ex) {
                 ex.printStackTrace();
+            }
+        });
+
+        buttonSaida.setOnAction(e -> {
+            try {
+                new TelaSaida().start(new Stage());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        buttonSair.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente sair", ButtonType.YES, ButtonType.NO);
+
+            alert.setHeaderText(null);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.YES){
+                stage.close();
             }
         });
 
