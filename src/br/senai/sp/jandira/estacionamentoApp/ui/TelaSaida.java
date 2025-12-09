@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.estacionamentoApp.ui;
 
+import br.senai.sp.jandira.estacionamentoApp.repository.ArquivoCsv;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,9 +10,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.Optional;
 
 public class TelaSaida extends Application {
+    //caminhos para os arquivos csv
+    String caminhoEntrada = "src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
+    String caminhoSaida = "src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
+
+    ComboBox<String> combo;
 
 
     @Override
@@ -42,12 +49,7 @@ public class TelaSaida extends Application {
         Label titulo = new Label("Registrar Saida");
         Label descricao = new Label("Gerencie a entrada e saída dos veículos");
 
-        ComboBox<String> combo = new ComboBox<>();
-        combo.getItems().addAll(
-                "Opção 1",
-                "Opção 2",
-                "Opção 3"
-        );
+        combo = new ComboBox<>();
 
         //criar painel de botoes
         Pane paneButtons = new Pane();
@@ -87,5 +89,31 @@ public class TelaSaida extends Application {
             }
         });
 
+        escreverComboBox();
+
+    }
+
+    public void escreverComboBox(){
+        String cliente;
+        String placa;
+        String modelo;
+
+
+        ArquivoCsv arquivo = new ArquivoCsv();
+        List<String> linhas = arquivo.lerCsv(caminhoEntrada);
+        for (int i = 1; i < linhas.size(); i++) {
+            String linha = linhas.get(i);
+            String[] dados = linha.split(";");
+
+            if (dados.length < 4) continue;
+
+            cliente = dados[0];
+            placa = dados[2];
+            modelo = dados[3];
+
+            String dadosMenu = placa + " - " + modelo + " (" + cliente + ")";
+
+            combo.getItems().add(dadosMenu);
+        }
     }
 }
