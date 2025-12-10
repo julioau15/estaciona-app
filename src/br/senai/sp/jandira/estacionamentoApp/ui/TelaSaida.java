@@ -34,20 +34,23 @@ public class TelaSaida extends Application {
 
         VBox root = new VBox();
         root.setPadding(new Insets(10));
-        root.setStyle("-fx-background-color: #6c00a9");
+        root.setStyle("-fx-background-color: #001C39");
 
         //Criamos a cena e colocamos o root nela
         Scene scene = new Scene(root);
 
         //Criar o header da tela
         VBox header = new VBox();
-        header.setPrefHeight(100);
+        header.setPrefHeight(10);
         header.setPadding(new Insets(10));
-        header.setStyle("-fx-background-color: rgba(194,158,255,0.84)");
+        header.setStyle("-fx-background-color: #77C8ECFF");
 
         //Labels de titulo e descricão
         Label titulo = new Label("Registrar Saida");
+        titulo.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+
         Label descricao = new Label("Gerencie a entrada e saída dos veículos");
+        descricao.setStyle("-fx-font-size: 16px;  -fx-text-fill: white;");
 
         combo = new ComboBox<>();
 
@@ -60,7 +63,10 @@ public class TelaSaida extends Application {
 
         //criar botoes
         Button buttonCancelar = new Button("Cancelar");
+        buttonCancelar.setStyle("-fx-background-color: #ffe6ab");
+
         Button buttonConfirmarSaida = new Button("Confirmar Saida");
+        buttonConfirmarSaida.setStyle("-fx-background-color: #FEB704");
 
         paneButtons.getChildren().addAll(boxButtons);
 

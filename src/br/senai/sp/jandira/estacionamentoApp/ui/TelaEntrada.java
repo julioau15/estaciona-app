@@ -32,23 +32,33 @@ public class TelaEntrada extends Application {
         Scene scene = new Scene(root);
 
         root.setPadding(new Insets(10));
-        root.setStyle("-fx-background-color: #dfacfc");
+        root.setStyle("-fx-background-color: #001C39");
 
         VBox header = new VBox();
 
         Label registrarEntrada = new Label("Registro de entrada");
+        registrarEntrada.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        registrarEntrada.setPadding(new Insets(0, 10,10, 0));
 
         Label lblCliente = new Label("Nome do cliente");
         tfCliente = new TextField();
+        lblCliente.setStyle("-fx-font-size: 16px;  -fx-text-fill: white;");
+        lblCliente.setPadding(new Insets(5, 0,5, 0));
 
         Label lblTelefoneCliente = new Label("Telefone do Cliente");
         tfTelefoneCliente = new TextField();
+        lblTelefoneCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
+        lblTelefoneCliente.setPadding(new Insets(8, 5,5, 0));
 
         Label lblPlacaCliente = new Label("Placa do Cliente");
         tfPlacaCliente = new TextField();
+        lblPlacaCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
+        lblPlacaCliente.setPadding(new Insets(8, 5,5, 0));
 
         Label lblModeloCliente = new Label("Modelo do Cliente");
         tfModeloCliente = new TextField();
+        lblModeloCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
+        lblModeloCliente.setPadding(new Insets(8, 5,5, 0));
 
         header.getChildren().addAll(registrarEntrada,
                 lblCliente, tfCliente,
