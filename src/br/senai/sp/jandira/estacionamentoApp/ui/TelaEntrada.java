@@ -68,8 +68,12 @@ public class TelaEntrada extends Application {
 
         Pane paneButtons = new Pane();
         HBox boxButtons = new HBox();
+        boxButtons.setSpacing(20);
         Button buttonCancelar = new Button("Cancelar");
+        buttonCancelar.setStyle("-fx-background-color: #ffe6ab;");
+
         Button buttonRegistrar = new Button("Registrar");
+        buttonRegistrar.setStyle("-fx-background-color: #FEB704");
 
         paneButtons.getChildren().addAll(boxButtons);
         boxButtons.getChildren().addAll(buttonCancelar, buttonRegistrar);
