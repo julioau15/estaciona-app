@@ -26,9 +26,9 @@ public class TelaSaida extends Application {
 
         //Criar o stage
         stage.setTitle("Projeto Integrador");
-        stage.setResizable(true);
-        stage.setHeight(500);
-        stage.setWidth(500);
+        stage.setResizable(false);
+        stage.setHeight(700);
+        stage.setWidth(700);
 
         //Criar o root componente principal de layout
 
