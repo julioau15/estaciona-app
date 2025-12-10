@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.estacionamentoApp.ui;
 
 import br.senai.sp.jandira.estacionamentoApp.repository.ArquivoCsv;
+import br.senai.sp.jandira.estacionamentoApp.services.RegistroService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -95,6 +96,12 @@ public class TelaSaida extends Application {
             }
         });
 
+        buttonConfirmarSaida.setOnAction(e -> {
+            String placa = chamarRegistrarSaida();
+            RegistroService  registro = new RegistroService();
+            registro.registrarSaida(placa);
+        });
+
         escreverComboBox();
 
     }
@@ -120,6 +127,15 @@ public class TelaSaida extends Application {
             String dadosMenu = placa + " - " + modelo + " (" + cliente + ")";
 
             combo.getItems().add(dadosMenu);
+
         }
+    }
+
+    public String chamarRegistrarSaida(){
+        String linha =  combo.getSelectionModel().getSelectedItem();
+        String[] dados = linha.split(" - ");
+        String placa  = dados[0];
+
+        return  placa;
     }
 }
