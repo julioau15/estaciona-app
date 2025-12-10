@@ -27,7 +27,7 @@ public class TelaPrincipal extends Application {
 
         VBox root = new VBox();
         root.setPadding(new Insets(10));
-        root.setStyle("-fx-background-color: #6c00a9");
+        root.setStyle("-fx-background-color: #001C39");
 
         //Criamos a cena e colocamos o root nela
         Scene scene = new Scene(root);
@@ -36,24 +36,40 @@ public class TelaPrincipal extends Application {
         VBox header = new VBox();
         header.setPrefHeight(100);
         header.setPadding(new Insets(10));
-        header.setStyle("-fx-background-color: rgba(194,158,255,0.84)");
+        header.setStyle("-fx-background-color: #77c8ec");
 
         //Labels de titulo e descricão
         Label titulo = new Label("Painel de controle Estacionamento");
+        titulo.setStyle(
+                "-fx-font-size: 20px; " +
+                "-fx-text-fill: white;" +
+                "-fx-font-weight: bold;"
+        );
+
         Label descricao = new Label("Gerencie a entrada e saída dos veículos");
+        descricao.setStyle(
+                "-fx-font-size: 16px; " +
+                "-fx-text-fill: white;");
 
         //criar painel de botoes
         Pane paneButtons = new Pane();
         paneButtons.setPadding(new Insets(10));
         HBox boxButtons = new HBox();
-        boxButtons.setPadding(new Insets(5));
+        boxButtons.setPadding(new Insets(-15, 5, 0,0));
         boxButtons.setSpacing(10);
 
         //criar botoes
         Button buttonEntrada = new Button("Entrada de veiculo");
+        buttonEntrada.setStyle("-fx-background-color: #FEB704");
+
         Button buttonSaida = new Button("Saida de veiculo");
+        buttonSaida.setStyle("-fx-background-color: #FEB704");
+
         Button buttonLimpar = new Button("Limpar registros");
+        buttonLimpar.setStyle("-fx-background-color: #FEB704");
+
         Button buttonSair = new Button("Sair");
+        buttonSair.setStyle("-fx-background-color: #FEB704");
         paneButtons.getChildren().addAll(boxButtons);
 
         //adicionar botoes
@@ -69,6 +85,9 @@ public class TelaPrincipal extends Application {
         TableColumn<EstacionamentoApp,String> entrada = new TableColumn<>("Entrada");
         TableColumn<EstacionamentoApp,String> permanencia = new TableColumn<>("Permanência");
         tabela.getColumns().addAll(cliente,telefone,placa,modelo,entrada,permanencia);
+        tabela.setMaxWidth(750);
+        tabela.setMaxHeight(300);
+
 
         //criar tabela 2
         TableView<EstacionamentoApp> tabela2 =new TableView<>();
@@ -79,6 +98,8 @@ public class TelaPrincipal extends Application {
         TableColumn<EstacionamentoApp,String> entrada2 = new TableColumn<>("Entrada");
         TableColumn<EstacionamentoApp,String> permanencia2 = new TableColumn<>("Permanência");
         tabela2.getColumns().addAll(cliente2,telefone2,placa2,modelo2,entrada2,permanencia2);
+        tabela2.setMaxWidth(750);
+        tabela2.setMaxHeight(300);
 
         //Conteudo do header
         header.getChildren().addAll(titulo, descricao);
