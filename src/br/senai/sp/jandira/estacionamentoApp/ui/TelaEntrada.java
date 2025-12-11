@@ -13,8 +13,13 @@ import javafx.stage.Stage;
 import java.util.Optional;
 
 public class TelaEntrada extends Application {
+    // declarando classe de validação
     ValidacaoService validacao = new ValidacaoService();
 
+    // declarando classe de registro
+    RegistroService registroService = new RegistroService();
+
+    // declarando text fields
     TextField tfCliente;
     TextField tfPlacaCliente;
     TextField tfTelefoneCliente;
@@ -29,15 +34,17 @@ public class TelaEntrada extends Application {
         stage.setHeight(700);
         stage.setWidth(700);
 
+        // definindo box root
         VBox root = new VBox();
-
         Scene scene = new Scene(root);
 
         root.setPadding(new Insets(10));
         root.setStyle("-fx-background-color: #001C39");
 
+        // definindo header
         VBox header = new VBox();
 
+        // definindo labels e textfieds
         Label registrarEntrada = new Label("Registro de entrada");
         registrarEntrada.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
         registrarEntrada.setPadding(new Insets(0, 10,10, 0));
@@ -65,26 +72,34 @@ public class TelaEntrada extends Application {
         tfModeloCliente.setPromptText("ex: civic");
         lblModeloCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
         lblModeloCliente.setPadding(new Insets(8, 5,5, 0));
+        // --------------------------------------
 
+        // adicionando labels e textfields ao header
         header.getChildren().addAll(registrarEntrada,
                 lblCliente, tfCliente,
                 lblTelefoneCliente, tfTelefoneCliente,
                 lblPlacaCliente, tfPlacaCliente,
                 lblModeloCliente, tfModeloCliente);
 
-        Pane paneButtons = new Pane();
+
+        // conteiner dos botões
         HBox boxButtons = new HBox();
         boxButtons.setSpacing(20);
+
+        // definindo butões
         Button buttonCancelar = new Button("Cancelar");
         buttonCancelar.setStyle("-fx-background-color: #ffe6ab;");
 
         Button buttonRegistrar = new Button("Registrar");
         buttonRegistrar.setStyle("-fx-background-color: #FEB704");
+        // ---------------------------
 
-        paneButtons.getChildren().addAll(boxButtons);
+        // adicionando botões ao container 
         boxButtons.getChildren().addAll(buttonCancelar, buttonRegistrar);
 
+        // definindo ação ao botão cancelar
         buttonCancelar.setOnAction(e -> {
+            // alerta
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente sair", ButtonType.YES, ButtonType.NO);
 
             alert.setHeaderText(null);
@@ -94,23 +109,30 @@ public class TelaEntrada extends Application {
             }
         });
 
+        // definindo ação ao botão registrar
         buttonRegistrar.setOnAction(e -> {
             String placa = tfPlacaCliente.getText();
             String modelo = tfModeloCliente.getText();
             String telefone = tfTelefoneCliente.getText();
             String cliente = tfCliente.getText();
 
+            // se as validações forem verdadeiras então chama receberDados
             if (validacao.validarNome(cliente) && validacao.validarTelefone(telefone) && validacao.validarModelo(modelo) && validacao.validarPlaca(placa)) {
                 recebeDados();
 
+
+                // limpa os campos
                 tfCliente.clear();
                 tfModeloCliente.clear();
                 tfPlacaCliente.clear();
                 tfTelefoneCliente.clear();
 
+                // deixa o foco no tfCliente
                 tfCliente.requestFocus();
             }
 
+
+            // se as validações forem falsas então escreve uma mensagem de erro e o foco vai para o campo invalido
             if (!validacao.validarNome(cliente)){
                 escreverAviso("Por favor, digite um nome valido!");
                 tfCliente.requestFocus();
@@ -127,22 +149,27 @@ public class TelaEntrada extends Application {
 
         });
 
+        // adiciona o header e os botões
         root.getChildren().add(header);
-        root.getChildren().add(paneButtons);
+        root.getChildren().add(boxButtons);
         stage.setScene(scene);
+
+        // mostra a tela
         stage.show();
     }
 
+    // método para receber os dados dos textfields e enviar para o método registrarEntrada 
     public void recebeDados (){
         String placa = tfPlacaCliente.getText();
         String modelo = tfModeloCliente.getText();
         String telefone = tfTelefoneCliente.getText();
         String cliente = tfCliente.getText();
 
-        RegistroService registroService = new RegistroService();
+        // usa os dados obtidos para registrar entrada
         registroService.registrarEntrada(cliente, telefone, placa, modelo);
     }
 
+    // método para escrever aviso
     public void escreverAviso(String mensagem){
         Alert alert = new Alert(Alert.AlertType.ERROR, mensagem);
         alert.setHeaderText(null);
