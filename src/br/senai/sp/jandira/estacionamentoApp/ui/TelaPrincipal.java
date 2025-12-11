@@ -18,6 +18,9 @@ import java.util.Optional;
 
 
 public class TelaPrincipal extends Application {
+    //classe ArquivoCsv
+    ArquivoCsv arquivo = new ArquivoCsv();
+
     //caminho para o arquivo csv
     String caminhoEntrada = "src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
     String caminhoSaida = "src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
@@ -183,12 +186,21 @@ public class TelaPrincipal extends Application {
             }
         });
 
+        buttonLimpar.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente Limpar as Tabelas?", ButtonType.YES, ButtonType.NO);
+
+            alert.setHeaderText(null);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.YES){
+                chamarLimparArquivo();
+            }
+        });
+
         escreverTabela();
 
     }
 
     public void escreverTabela(){
-        ArquivoCsv arquivo = new ArquivoCsv();
         List<String> dadosEntrada = arquivo.lerCsv(caminhoEntrada);
         List<String> dadosSaida = arquivo.lerCsv(caminhoSaida);
         tabela2.getItems().clear();
@@ -211,6 +223,13 @@ public class TelaPrincipal extends Application {
             }
 
         }
+    }
+
+    public void chamarLimparArquivo(){
+        String cabecalhoEntrada = "cliente;telefone;placa;modelo;horario_de_entrada";
+        String cabacalhoSaida = "cliente;telefone;placa;modelo;horario_de_entrada;horario_de_saida;permanencia;preco";
+        arquivo.limparArquivo(caminhoEntrada, cabecalhoEntrada);
+        arquivo.limparArquivo(caminhoSaida, cabacalhoSaida);
     }
 
 }
