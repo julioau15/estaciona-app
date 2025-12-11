@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.Event;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -84,25 +86,60 @@ public class TelaPrincipal extends Application {
                 "-fx-text-fill: white;");
 
         //criar painel de botoes
-        Pane paneButtons = new Pane();
-        paneButtons.setPadding(new Insets(10));
         HBox boxButtons = new HBox();
-        boxButtons.setPadding(new Insets(-15, 5, 0,0));
-        boxButtons.setSpacing(10);
+        boxButtons.setSpacing(20);
+        boxButtons.setPadding(new Insets(10,  10, 10, 10));
+        boxButtons.setAlignment(Pos.CENTER);
+
 
         //criar botoes
         Button buttonEntrada = new Button("Entrada de veiculo");
-        buttonEntrada.setStyle("-fx-background-color: #FEB704");
+        buttonEntrada.setStyle(
+                " -fx-background-color: #3b7800;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-min-width: 140;\n" +
+                "    -fx-max-width: 140;\n" +
+                "    -fx-min-height: 40;\n" +
+                "    -fx-max-height: 40;\n" +
+                "    -fx-alignment: center;"
+        );
 
         Button buttonSaida = new Button("Saida de veiculo");
-        buttonSaida.setStyle("-fx-background-color: #FEB704");
+        buttonSaida.setStyle(
+                " -fx-background-color: #032e57;\n" +
+                        "    -fx-text-fill: white;\n" +
+                        "    -fx-font-weight: bold;\n" +
+                        "    -fx-min-width: 140;\n" +
+                        "    -fx-max-width: 140;\n" +
+                        "    -fx-min-height: 40;\n" +
+                        "    -fx-max-height: 40;\n" +
+                        "    -fx-alignment: center;"
+        );
 
         Button buttonLimpar = new Button("Limpar registros");
-        buttonLimpar.setStyle("-fx-background-color: #FEB704");
+        buttonLimpar.setStyle(
+                " -fx-background-color: #913250;\n" +
+                        "    -fx-text-fill: white;\n" +
+                        "    -fx-font-weight: bold;\n" +
+                        "    -fx-min-width: 140;\n" +
+                        "    -fx-max-width: 140;\n" +
+                        "    -fx-min-height: 40;\n" +
+                        "    -fx-max-height: 40;\n" +
+                        "    -fx-alignment: center;"
+        );
 
         Button buttonSair = new Button("Sair");
-        buttonSair.setStyle("-fx-background-color: #FEB704");
-        paneButtons.getChildren().addAll(boxButtons);
+        buttonSair.setStyle(
+                " -fx-background-color: #989898;\n" +
+                        "    -fx-text-fill: white;\n" +
+                        "    -fx-font-weight: bold;\n" +
+                        "    -fx-min-width: 140;\n" +
+                        "    -fx-max-width: 140;\n" +
+                        "    -fx-min-height: 40;\n" +
+                        "    -fx-max-height: 40;\n" +
+                        "    -fx-alignment: center;"
+        );
 
         //adicionar botoes
         boxButtons.getChildren().addAll(buttonEntrada, buttonSaida, buttonLimpar, buttonSair);
@@ -124,6 +161,7 @@ public class TelaPrincipal extends Application {
 
         tabela.setMaxWidth(750);
         tabela.setMaxHeight(300);
+        tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 
         //criar tabela 2
@@ -147,13 +185,14 @@ public class TelaPrincipal extends Application {
 
         tabela2.setMaxWidth(750);
         tabela2.setMaxHeight(300);
+        tabela2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //Conteudo do header
         header.getChildren().addAll(titulo, descricao);
 
         //conteudo do root
         root.getChildren().addAll(header);
-        root.getChildren().addAll(paneButtons);
+        root.getChildren().addAll(boxButtons);
         root.getChildren().addAll(tabela);
         root.getChildren().addAll(tabela2);
 
@@ -211,7 +250,6 @@ public class TelaPrincipal extends Application {
         });
 
         escreverTabela();
-
     }
 
     public void escreverTabela(){

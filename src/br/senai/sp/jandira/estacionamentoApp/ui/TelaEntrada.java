@@ -44,21 +44,25 @@ public class TelaEntrada extends Application {
 
         Label lblCliente = new Label("Nome do cliente");
         tfCliente = new TextField();
+        tfCliente.setPromptText("joão Silva");
         lblCliente.setStyle("-fx-font-size: 16px;  -fx-text-fill: white;");
         lblCliente.setPadding(new Insets(5, 0,5, 0));
 
         Label lblTelefoneCliente = new Label("Telefone do Cliente");
         tfTelefoneCliente = new TextField();
+        tfTelefoneCliente.setPromptText("(11) 99999-9999");
         lblTelefoneCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
         lblTelefoneCliente.setPadding(new Insets(8, 5,5, 0));
 
         Label lblPlacaCliente = new Label("Placa do Veículo");
         tfPlacaCliente = new TextField();
+        tfPlacaCliente.setPromptText("ex: abc-1234");
         lblPlacaCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
         lblPlacaCliente.setPadding(new Insets(8, 5,5, 0));
 
         Label lblModeloCliente = new Label("Modelo do Veículo");
         tfModeloCliente = new TextField();
+        tfModeloCliente.setPromptText("ex: civic");
         lblModeloCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
         lblModeloCliente.setPadding(new Insets(8, 5,5, 0));
 
