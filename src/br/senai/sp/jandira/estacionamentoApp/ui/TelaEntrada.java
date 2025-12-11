@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.estacionamentoApp.ui;
 
 import br.senai.sp.jandira.estacionamentoApp.services.RegistroService;
+import br.senai.sp.jandira.estacionamentoApp.services.ValidacaoService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import java.util.Optional;
 
 public class TelaEntrada extends Application {
+    ValidacaoService validacao = new ValidacaoService();
 
     TextField tfCliente;
     TextField tfPlacaCliente;
@@ -50,12 +52,12 @@ public class TelaEntrada extends Application {
         lblTelefoneCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
         lblTelefoneCliente.setPadding(new Insets(8, 5,5, 0));
 
-        Label lblPlacaCliente = new Label("Placa do Cliente");
+        Label lblPlacaCliente = new Label("Placa do Veículo");
         tfPlacaCliente = new TextField();
         lblPlacaCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
         lblPlacaCliente.setPadding(new Insets(8, 5,5, 0));
 
-        Label lblModeloCliente = new Label("Modelo do Cliente");
+        Label lblModeloCliente = new Label("Modelo do Veículo");
         tfModeloCliente = new TextField();
         lblModeloCliente.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
         lblModeloCliente.setPadding(new Insets(8, 5,5, 0));
@@ -89,7 +91,36 @@ public class TelaEntrada extends Application {
         });
 
         buttonRegistrar.setOnAction(e -> {
-            recebeDados();
+            String placa = tfPlacaCliente.getText();
+            String modelo = tfModeloCliente.getText();
+            String telefone = tfTelefoneCliente.getText();
+            String cliente = tfCliente.getText();
+
+            if (validacao.validarNome(cliente) && validacao.validarTelefone(telefone) && validacao.validarModelo(modelo) && validacao.validarPlaca(placa)) {
+                recebeDados();
+
+                tfCliente.clear();
+                tfModeloCliente.clear();
+                tfPlacaCliente.clear();
+                tfTelefoneCliente.clear();
+
+                tfCliente.requestFocus();
+            }
+
+            if (!validacao.validarNome(cliente)){
+                escreverAviso("Por favor, digite um nome valido!");
+                tfCliente.requestFocus();
+            }else if (!validacao.validarTelefone(telefone)){
+                escreverAviso("Por favor, digite um telefone valido!");
+                tfTelefoneCliente.requestFocus();
+            }else if (!validacao.validarPlaca(placa)){
+                escreverAviso("Por favor, digite uma placa valido!");
+                tfPlacaCliente.requestFocus();
+            }else if (!validacao.validarModelo(modelo)){
+                escreverAviso("Por favor, digite um modelo valido!");
+                tfModeloCliente.requestFocus();
+            }
+
         });
 
         root.getChildren().add(header);
@@ -106,7 +137,12 @@ public class TelaEntrada extends Application {
 
         RegistroService registroService = new RegistroService();
         registroService.registrarEntrada(cliente, telefone, placa, modelo);
+    }
 
+    public void escreverAviso(String mensagem){
+        Alert alert = new Alert(Alert.AlertType.ERROR, mensagem);
+        alert.setHeaderText(null);
+        alert.show();
     }
 
 

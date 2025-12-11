@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class TelaSaida extends Application {
+    TelaPrincipal telaPrincipal = new TelaPrincipal();
+
     //caminho para o arquivo csv
     String caminhoEntrada = "src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
 
@@ -96,7 +98,15 @@ public class TelaSaida extends Application {
         });
 
         buttonConfirmarSaida.setOnAction(e -> {
-            chamarRegistrarSaida();
+            if (combo.getItems().isEmpty()) {
+                Alert alerta = new Alert(Alert.AlertType.ERROR, "Por favor, escolha uma opção!");
+                alerta.setHeaderText(null);
+                alerta.showAndWait();
+            }else{
+                chamarRegistrarSaida();
+                escreverComboBox();
+            }
+
         });
 
         escreverComboBox();
@@ -107,6 +117,7 @@ public class TelaSaida extends Application {
         String cliente;
         String placa;
         String modelo;
+        combo.getItems().clear();
 
 
         ArquivoCsv arquivo = new ArquivoCsv();

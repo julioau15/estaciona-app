@@ -4,6 +4,7 @@ import br.senai.sp.jandira.estacionamentoApp.EstacionamentoApp;
 import br.senai.sp.jandira.estacionamentoApp.repository.ArquivoCsv;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -162,7 +163,13 @@ public class TelaPrincipal extends Application {
 
         buttonEntrada.setOnAction(e -> {
             try {
-                new TelaEntrada().start(new Stage());
+                Stage entradaStage = new Stage();
+                new TelaEntrada().start(entradaStage);
+
+                entradaStage.setOnHidden(windowEvent -> {
+                    escreverTabela();
+                });
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -170,7 +177,13 @@ public class TelaPrincipal extends Application {
 
         buttonSaida.setOnAction(e -> {
             try {
-                new TelaSaida().start(new Stage());
+                Stage saidaStage = new Stage();
+                new TelaSaida().start(saidaStage);
+
+                saidaStage.setOnHiding((event) -> {
+                    escreverTabela();
+                });
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -193,6 +206,7 @@ public class TelaPrincipal extends Application {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.YES){
                 chamarLimparArquivo();
+                escreverTabela();
             }
         });
 
@@ -203,6 +217,7 @@ public class TelaPrincipal extends Application {
     public void escreverTabela(){
         List<String> dadosEntrada = arquivo.lerCsv(caminhoEntrada);
         List<String> dadosSaida = arquivo.lerCsv(caminhoSaida);
+        tabela.getItems().clear();
         tabela2.getItems().clear();
 
         for(int i = 0; i < dadosEntrada.size(); i++){
