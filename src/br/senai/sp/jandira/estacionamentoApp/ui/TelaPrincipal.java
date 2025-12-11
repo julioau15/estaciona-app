@@ -1,19 +1,47 @@
 package br.senai.sp.jandira.estacionamentoApp.ui;
 
 import br.senai.sp.jandira.estacionamentoApp.EstacionamentoApp;
+import br.senai.sp.jandira.estacionamentoApp.repository.ArquivoCsv;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.Optional;
 
 
 public class TelaPrincipal extends Application {
+    //caminho para o arquivo csv
+    String caminhoEntrada = "src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
+    String caminhoSaida = "src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
+
+    //Tabela 1
+    TableView<String[]> tabela = new TableView<>();
+    TableColumn<String[], String> cliente;
+    TableColumn<String[],String> telefone;
+    TableColumn<String[],String> placa;
+    TableColumn<String[],String> modelo;
+    TableColumn<String[],String> entrada;
+
+
+    //Tabela 2
+    TableView<String[]> tabela2;
+    TableColumn<String[],String> cliente2;
+    TableColumn<String[],String> telefone2;
+    TableColumn<String[],String> placa2;
+    TableColumn<String[],String> modelo2;
+    TableColumn<String[],String> entrada2;
+    TableColumn<String[],String> permanencia;
+    TableColumn<String[],String> preco;
+
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -76,28 +104,43 @@ public class TelaPrincipal extends Application {
         boxButtons.getChildren().addAll(buttonEntrada, buttonSaida, buttonLimpar, buttonSair);
 
         //criar tabela
-        TableView<EstacionamentoApp> tabela =new TableView<>();
+        tabela = new TableView<>();
+        cliente = new TableColumn<>("Cliente");
+        telefone = new TableColumn<>("Telefone");
+        placa = new TableColumn<>("Placa");
+        modelo = new TableColumn<>("Modelo");
+        entrada = new TableColumn<>("Entrada");
+        tabela.getColumns().addAll(cliente,telefone,placa,modelo,entrada);
 
-        TableColumn<EstacionamentoApp,String> cliente = new TableColumn<>("Cliente");
-        TableColumn<EstacionamentoApp,String> telefone = new TableColumn<>("Telefone");
-        TableColumn<EstacionamentoApp,String> placa = new TableColumn<>("Placa");
-        TableColumn<EstacionamentoApp,String> modelo = new TableColumn<>("Modelo");
-        TableColumn<EstacionamentoApp,String> entrada = new TableColumn<>("Entrada");
-        TableColumn<EstacionamentoApp,String> permanencia = new TableColumn<>("Permanência");
-        tabela.getColumns().addAll(cliente,telefone,placa,modelo,entrada,permanencia);
+        cliente.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[0])));
+        telefone.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[1])));
+        placa.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[2])));
+        modelo.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[3])));
+        entrada.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[4])));
+
         tabela.setMaxWidth(750);
         tabela.setMaxHeight(300);
 
 
         //criar tabela 2
-        TableView<EstacionamentoApp> tabela2 =new TableView<>();
-        TableColumn<EstacionamentoApp,String> cliente2 = new TableColumn<>("Cliente");
-        TableColumn<EstacionamentoApp,String> telefone2 = new TableColumn<>("Telefone");
-        TableColumn<EstacionamentoApp,String> placa2 = new TableColumn<>("Placa");
-        TableColumn<EstacionamentoApp,String> modelo2 = new TableColumn<>("Modelo");
-        TableColumn<EstacionamentoApp,String> entrada2 = new TableColumn<>("Entrada");
-        TableColumn<EstacionamentoApp,String> permanencia2 = new TableColumn<>("Permanência");
-        tabela2.getColumns().addAll(cliente2,telefone2,placa2,modelo2,entrada2,permanencia2);
+        tabela2 = new TableView<>();
+        cliente2 = new TableColumn<>("Cliente");
+        telefone2 = new TableColumn<>("Telefone");
+        placa2 = new TableColumn<>("Placa");
+        modelo2 = new TableColumn<>("Modelo");
+        entrada2 = new TableColumn<>("Entrada");
+        permanencia = new TableColumn<>("Permanência");
+        preco = new TableColumn<>("Preço");
+        tabela2.getColumns().addAll(cliente2,telefone2,placa2,modelo2,entrada2,permanencia, preco);
+
+        cliente2.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[0])));
+        telefone2.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[1])));
+        placa2.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[2])));
+        modelo2.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[3])));
+        entrada2.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[4])));
+        permanencia.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[6])));
+        preco.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[7])));
+
         tabela2.setMaxWidth(750);
         tabela2.setMaxHeight(300);
 
@@ -140,6 +183,34 @@ public class TelaPrincipal extends Application {
             }
         });
 
+        escreverTabela();
+
+    }
+
+    public void escreverTabela(){
+        ArquivoCsv arquivo = new ArquivoCsv();
+        List<String> dadosEntrada = arquivo.lerCsv(caminhoEntrada);
+        List<String> dadosSaida = arquivo.lerCsv(caminhoSaida);
+        tabela2.getItems().clear();
+
+        for(int i = 0; i < dadosEntrada.size(); i++){
+            if(i != 0){
+                String[] linha = dadosEntrada.get(i).split(";");
+                if (linha.length > 3){
+                    tabela.getItems().add(linha);
+                }
+            }
+        }
+
+        for(int i = 0; i < dadosSaida.size(); i++){
+            if(i != 0){
+                String[] linha = dadosSaida.get(i).split(";");
+                if (linha.length > 6){
+                    tabela2.getItems().add(linha);
+                }
+            }
+
+        }
     }
 
 }

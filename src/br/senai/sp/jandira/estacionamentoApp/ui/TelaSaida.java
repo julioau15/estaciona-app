@@ -15,9 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class TelaSaida extends Application {
-    //caminhos para os arquivos csv
+    //caminho para o arquivo csv
     String caminhoEntrada = "src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
-    String caminhoSaida = "src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
 
     ComboBox<String> combo;
 
@@ -97,9 +96,7 @@ public class TelaSaida extends Application {
         });
 
         buttonConfirmarSaida.setOnAction(e -> {
-            String placa = chamarRegistrarSaida();
-            RegistroService  registro = new RegistroService();
-            registro.registrarSaida(placa);
+            chamarRegistrarSaida();
         });
 
         escreverComboBox();
@@ -131,11 +128,11 @@ public class TelaSaida extends Application {
         }
     }
 
-    public String chamarRegistrarSaida(){
+    public void chamarRegistrarSaida(){
         String linha =  combo.getSelectionModel().getSelectedItem();
         String[] dados = linha.split(" - ");
         String placa  = dados[0];
-
-        return  placa;
+        RegistroService  registro = new RegistroService();
+        registro.registrarSaida(placa);
     }
 }
