@@ -28,7 +28,7 @@ public class TelaPrincipal extends Application {
     String caminhoEntrada = "src/br/senai/sp/jandira/estacionamentoApp/data/veiculos_estacionados.csv";
     String caminhoSaida = "src/br/senai/sp/jandira/estacionamentoApp/data/historico_saidas.csv";
 
-    //Tabela 1
+    // declara Tabela 1
     TableView<String[]> tabela = new TableView<>();
     TableColumn<String[], String> cliente;
     TableColumn<String[],String> telefone;
@@ -37,7 +37,7 @@ public class TelaPrincipal extends Application {
     TableColumn<String[],String> entrada;
 
 
-    //Tabela 2
+    //declara Tabela 2
     TableView<String[]> tabela2;
     TableColumn<String[],String> cliente2;
     TableColumn<String[],String> telefone2;
@@ -51,14 +51,13 @@ public class TelaPrincipal extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        //Criar o stage
+        // Criar o stage
         stage.setTitle("Projeto Integrador");
         stage.setResizable(false);
         stage.setHeight(700);
         stage.setWidth(700);
 
-        //Criar o root componente principal de layout
-
+        // Criar o root componente principal de layout
         VBox root = new VBox();
         root.setPadding(new Insets(10));
         root.setStyle("-fx-background-color: #001C39");
@@ -200,11 +199,14 @@ public class TelaPrincipal extends Application {
         stage.setScene(scene);
         stage.show();
 
+        // definido ação para o botão de entrada
         buttonEntrada.setOnAction(e -> {
+            // tenta chamar a tela de entrada
             try {
                 Stage entradaStage = new Stage();
                 new TelaEntrada().start(entradaStage);
 
+                // quando a tela de entrada fechar as tabelas são atualizadas
                 entradaStage.setOnHidden(windowEvent -> {
                     escreverTabela();
                 });
@@ -214,11 +216,14 @@ public class TelaPrincipal extends Application {
             }
         });
 
+        // definido ação para o botão de saida
         buttonSaida.setOnAction(e -> {
+             // tenta chamar a tela de saída
             try {
                 Stage saidaStage = new Stage();
                 new TelaSaida().start(saidaStage);
 
+                 // quando a tela de saída fechar as tabelas são atualizadas
                 saidaStage.setOnHiding((event) -> {
                     escreverTabela();
                 });
@@ -228,7 +233,9 @@ public class TelaPrincipal extends Application {
             }
         });
 
+        // definido ação para o botão sair
         buttonSair.setOnAction(e -> {
+            // alerta
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente sair", ButtonType.YES, ButtonType.NO);
 
             alert.setHeaderText(null);
@@ -238,38 +245,55 @@ public class TelaPrincipal extends Application {
             }
         });
 
+        // definido ação para o botão de limpar
         buttonLimpar.setOnAction(e -> {
+            //alerta
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente Limpar as Tabelas?", ButtonType.YES, ButtonType.NO);
 
             alert.setHeaderText(null);
             Optional<ButtonType> result = alert.showAndWait();
+            
             if (result.get() == ButtonType.YES){
+                // chamar método par alimpar as tabelas
                 chamarLimparArquivo();
+
+                // atualiza as tabelas
                 escreverTabela();
             }
         });
 
+        // escreve as tabelas
         escreverTabela();
     }
 
+    // método que escreve as tabelas
     public void escreverTabela(){
+        // pega os dados dos arquivos csv
         List<String> dadosEntrada = arquivo.lerCsv(caminhoEntrada);
         List<String> dadosSaida = arquivo.lerCsv(caminhoSaida);
+
+        // limpa as tabelas
         tabela.getItems().clear();
         tabela2.getItems().clear();
 
+        // ignora a primeira linha de cabeçalho
         for(int i = 0; i < dadosEntrada.size(); i++){
             if(i != 0){
+                // separa a linha com ";" 
                 String[] linha = dadosEntrada.get(i).split(";");
                 if (linha.length > 3){
+                    // adiciona a linha na tabela
                     tabela.getItems().add(linha);
                 }
             }
         }
 
+        // ignora a primeira linha de cabeçalho
         for(int i = 0; i < dadosSaida.size(); i++){
             if(i != 0){
+                 // separa a linha com ";" 
                 String[] linha = dadosSaida.get(i).split(";");
+                 // adiciona a linha na tabela
                 if (linha.length > 6){
                     tabela2.getItems().add(linha);
                 }
@@ -278,9 +302,13 @@ public class TelaPrincipal extends Application {
         }
     }
 
+    // método responsável por limpar as tabelas
     public void chamarLimparArquivo(){
+        // definindo cabeçalhos
         String cabecalhoEntrada = "cliente;telefone;placa;modelo;horario_de_entrada";
         String cabacalhoSaida = "cliente;telefone;placa;modelo;horario_de_entrada;horario_de_saida;permanencia;preco";
+
+        // chama o método de limpar arquivo csv para os dois arquivos
         arquivo.limparArquivo(caminhoEntrada, cabecalhoEntrada);
         arquivo.limparArquivo(caminhoSaida, cabacalhoSaida);
     }
