@@ -55,12 +55,12 @@ public class TelaPrincipal extends Application {
         stage.setTitle("Projeto Integrador");
         stage.setResizable(false);
         stage.setHeight(700);
-        stage.setWidth(700);
+        stage.setWidth(900);
 
         // Criar o root componente principal de layout
         VBox root = new VBox();
         root.setPadding(new Insets(10));
-        root.setStyle("-fx-background-color: #001C39");
+        root.setStyle("-fx-background-color: #023f5d");
 
         //Criamos a cena e colocamos o root nela
         Scene scene = new Scene(root);
@@ -69,20 +69,20 @@ public class TelaPrincipal extends Application {
         VBox header = new VBox();
         header.setPrefHeight(100);
         header.setPadding(new Insets(10));
-        header.setStyle("-fx-background-color: #77c8ec");
+        header.setStyle("-fx-background-color: #898989");
 
         //Labels de titulo e descricão
         Label titulo = new Label("Painel de controle Estacionamento");
         titulo.setStyle(
                 "-fx-font-size: 20px; " +
-                "-fx-text-fill: white;" +
+                "-fx-text-fill: #001a31;" +
                 "-fx-font-weight: bold;"
         );
 
         Label descricao = new Label("Gerencie a entrada e saída dos veículos");
         descricao.setStyle(
                 "-fx-font-size: 16px; " +
-                "-fx-text-fill: white;");
+                "-fx-text-fill: #303030;");
 
         //criar painel de botoes
         HBox boxButtons = new HBox();
@@ -95,10 +95,10 @@ public class TelaPrincipal extends Application {
         Button buttonEntrada = new Button("Entrada de veiculo");
         buttonEntrada.setStyle(
                 " -fx-background-color: #3b7800;\n" +
-                "    -fx-text-fill: white;\n" +
+                "    -fx-text-fill: #000000;\n" +
                 "    -fx-font-weight: bold;\n" +
-                "    -fx-min-width: 140;\n" +
-                "    -fx-max-width: 140;\n" +
+                "    -fx-min-width: 200;\n" +
+                "    -fx-max-width: 200;\n" +
                 "    -fx-min-height: 40;\n" +
                 "    -fx-max-height: 40;\n" +
                 "    -fx-alignment: center;"
@@ -106,11 +106,11 @@ public class TelaPrincipal extends Application {
 
         Button buttonSaida = new Button("Saida de veiculo");
         buttonSaida.setStyle(
-                " -fx-background-color: #032e57;\n" +
-                        "    -fx-text-fill: white;\n" +
+                " -fx-background-color: #af8c00;\n" +
+                        "    -fx-text-fill: #000000;\n" +
                         "    -fx-font-weight: bold;\n" +
-                        "    -fx-min-width: 140;\n" +
-                        "    -fx-max-width: 140;\n" +
+                        "    -fx-min-width: 200;\n" +
+                        "    -fx-max-width: 200;\n" +
                         "    -fx-min-height: 40;\n" +
                         "    -fx-max-height: 40;\n" +
                         "    -fx-alignment: center;"
@@ -119,10 +119,10 @@ public class TelaPrincipal extends Application {
         Button buttonLimpar = new Button("Limpar registros");
         buttonLimpar.setStyle(
                 " -fx-background-color: #913250;\n" +
-                        "    -fx-text-fill: white;\n" +
+                        "    -fx-text-fill: #000000;\n" +
                         "    -fx-font-weight: bold;\n" +
-                        "    -fx-min-width: 140;\n" +
-                        "    -fx-max-width: 140;\n" +
+                        "    -fx-min-width: 200;\n" +
+                        "    -fx-max-width: 200;\n" +
                         "    -fx-min-height: 40;\n" +
                         "    -fx-max-height: 40;\n" +
                         "    -fx-alignment: center;"
@@ -131,10 +131,10 @@ public class TelaPrincipal extends Application {
         Button buttonSair = new Button("Sair");
         buttonSair.setStyle(
                 " -fx-background-color: #989898;\n" +
-                        "    -fx-text-fill: white;\n" +
+                        "    -fx-text-fill: #000000;\n" +
                         "    -fx-font-weight: bold;\n" +
-                        "    -fx-min-width: 140;\n" +
-                        "    -fx-max-width: 140;\n" +
+                        "    -fx-min-width: 200;\n" +
+                        "    -fx-max-width: 200;\n" +
                         "    -fx-min-height: 40;\n" +
                         "    -fx-max-height: 40;\n" +
                         "    -fx-alignment: center;"
@@ -158,7 +158,6 @@ public class TelaPrincipal extends Application {
         modelo.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[3])));
         entrada.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[4])));
 
-        tabela.setMaxWidth(750);
         tabela.setMaxHeight(300);
         tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -182,7 +181,6 @@ public class TelaPrincipal extends Application {
         permanencia.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[6])));
         preco.setCellValueFactory((data -> new SimpleStringProperty(data.getValue()[7])));
 
-        tabela2.setMaxWidth(750);
         tabela2.setMaxHeight(300);
         tabela2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 

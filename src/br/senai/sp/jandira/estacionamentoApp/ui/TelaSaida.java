@@ -4,6 +4,7 @@ import br.senai.sp.jandira.estacionamentoApp.repository.ArquivoCsv;
 import br.senai.sp.jandira.estacionamentoApp.services.RegistroService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -37,13 +38,12 @@ public class TelaSaida extends Application {
         //Criar o stage
         stage.setTitle("Projeto Integrador");
         stage.setResizable(false);
-        stage.setHeight(700);
-        stage.setWidth(700);
+        stage.setWidth(400);
 
         //Criar o root componente principal de layout
         VBox root = new VBox();
         root.setPadding(new Insets(10));
-        root.setStyle("-fx-background-color: #001C39");
+        root.setStyle("-fx-background-color: #023f5d");
 
         //Criamos a cena e colocamos o root nela
         Scene scene = new Scene(root);
@@ -52,39 +52,55 @@ public class TelaSaida extends Application {
         VBox header = new VBox();
         header.setPrefHeight(10);
         header.setPadding(new Insets(10));
-        header.setStyle("-fx-background-color: #77C8ECFF");
+        header.setStyle("-fx-background-color: #898989");
+        header.setAlignment(Pos.CENTER);
 
         //Labels de titulo e descricão
         Label titulo = new Label("Registrar Saida");
-        titulo.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        titulo.setStyle("-fx-font-size: 20px; -fx-text-fill: #000000; -fx-font-weight: bold;");
 
         Label descricao = new Label("Gerencie a entrada e saída dos veículos");
-        descricao.setStyle("-fx-font-size: 16px;  -fx-text-fill: white;");
+        descricao.setStyle("-fx-font-size: 16px;  -fx-text-fill: #000000;");
 
         header.getChildren().addAll(titulo, descricao);
         
 
         // definindo combo box
+        HBox comboBox = new HBox();
         combo = new ComboBox<>();
+        String placeHolder = "Selecione um veículo";
+        combo.setPromptText(placeHolder);
+        combo.setPrefWidth(200);
+        combo.setPrefHeight(30);
+        comboBox.getChildren().addAll(combo);
+        comboBox.setAlignment(Pos.CENTER);
+        comboBox.setPadding(new Insets(10));
+        comboBox.setStyle("-fx-background-color: #898989");
 
         //criar painel de botoes
         HBox boxButtons = new HBox();
-        boxButtons.setPadding(new Insets(5));
+        boxButtons.setPadding(new Insets(10, 5, 20, 0));
         boxButtons.setSpacing(10);
+        boxButtons.setAlignment(Pos.CENTER);
+        boxButtons.setStyle("-fx-background-color: #898989");
 
         //criar botões
         Button buttonCancelar = new Button("Cancelar");
-        buttonCancelar.setStyle("-fx-background-color: #ffe6ab");
+        buttonCancelar.setStyle("-fx-background-color: #515151; -fx-font-weight: bold; -fx-text-fill: #000000;");
+        buttonCancelar.setMinWidth(150);
+        buttonCancelar.setMaxHeight(70);
 
         Button buttonConfirmarSaida = new Button("Confirmar Saida");
-        buttonConfirmarSaida.setStyle("-fx-background-color: #FEB704");
+        buttonConfirmarSaida.setStyle("-fx-background-color: #3b7800;  -fx-font-weight: bold;  -fx-text-fill: #000000;");
+        buttonConfirmarSaida.setMinWidth(150);
+        buttonConfirmarSaida.setMaxHeight(70);
 
         //adicionar botoes
         boxButtons.getChildren().addAll(buttonCancelar, buttonConfirmarSaida);
 
         //adicionando header, combo box e botões
         root.getChildren().addAll(header);
-        root.getChildren().addAll(combo);
+        root.getChildren().addAll(comboBox);
         root.getChildren().addAll(boxButtons);
 
 
