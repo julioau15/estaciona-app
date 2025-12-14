@@ -10,7 +10,7 @@
 
 
   
-  ## Tela de entrada deveículos
+  ## Tela de entrada de veículos 
    <img width="397" height="433" alt="tela de entrada" src="https://github.com/user-attachments/assets/cc9a8c0e-44cf-4b3b-8e2e-40ff4375c883" />
 
 
