@@ -1,5 +1,6 @@
 <div align="center">
-<h1>Estaciona +</h1> 
+<h1>Aplicação Estaciona +</h1>
+<h2>Aplicação para desktop em Java + JavaFx para controle de entrada e saída de veículos, cálculo automático de permanência e valor, com histórico registrado em csv.</h2>
 <a href="https://github.com/julioau15/projeto-integrador/">Repositório Principal - Projeto Integrador</a>
   
   
